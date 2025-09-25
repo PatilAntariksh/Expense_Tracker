@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-primary">Expense Tracker</h1>
+    <p><strong>Total Spent:</strong> ${{ total }}</p>
+
+    <!-- Charts -->
+    <div class="d-flex gap-4 mb-4 flex-wrap">
+        {% if pie_chart %}
+        <div>
+            <h5>Category Pie Chart</h5>
+            <img src="data:image/png;base64,{{ pie_chart }}" class="img-fluid">
+        </div>
+        {% endif %}
+        {% if bar_chart %}
+        <div>
+            <h5>Monthly Bar Chart</h5>
+            <img src="data:image/png;base64,{{ bar_chart }}" class="img-fluid">
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Expenses Table -->
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.title }}</td>
+                <td>${{ expense.amount }}</td>
+                <td style="color: {% if expense.category == 'Food' %}red{% elif expense.category == 'Travel' %}blue{% else %}green{% endif %};">
+                    {{ expense.category }}
+                </td>
+                <td>{{ expense.date }}</td>
+                <td>
+                    <a href="{{ url_for('delete_expense', id=expense.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

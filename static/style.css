@@ -1,0 +1,22 @@
+#wrapper {
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+#sidebar-wrapper {
+    width: 220px;
+    min-height: 100vh;
+    background: rgba(52, 58, 64, 0.9);
+    color: white;
+    padding: 20px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -220px; /* hide sidebar */
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
